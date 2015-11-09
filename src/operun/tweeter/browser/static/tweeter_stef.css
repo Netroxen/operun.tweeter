@@ -1,0 +1,8 @@
+/* Custom CSS */
+
+.tweet {
+    width: 200px;
+    height: auto;
+    background-color: #f0f0f0;
+    margin-bottom: 10px
+}

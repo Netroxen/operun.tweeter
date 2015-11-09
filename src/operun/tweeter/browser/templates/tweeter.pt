@@ -1,0 +1,36 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal" metal:use-macro="here/main_template/macros/master" xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns="http://www.w3.org/1999/xhtml" i18n:domain="my.addon"
+lang="en">
+
+<body>
+  <metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+      <h1 class="documentFirstHeading">Twitter Tweeter</h1>
+      <div id="form_input">
+        <form action="">
+          <input type="text" name="form_name">
+          <br>
+          <input type="radio" name="tweet_count" value="5">5
+          <input type="radio" name="tweet_count" value="10">10
+          <input type="radio" name="tweet_count" value="15">15
+          <input type="radio" name="tweet_count" value="20">20
+          <br>
+          <input type="submit" class="context" name="import_name" value="Import">
+        </form>
+      </div>
+
+      <fieldset>
+        <legend></legend>
+        <div tal:define="tweets view/twitter_tweets" tal:condition="tweets">
+          <h2>Success!</h2>
+          <p tal:repeat="tweet tweets">
+            <span tal:replace="tweet/text" />
+          </p>
+        </div>
+      </fieldset>
+
+    </tal:main-macro>
+  </metal:main>
+</body>
+
+</html>

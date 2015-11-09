@@ -1,0 +1,13 @@
+<registry>
+    <records interface='Products.CMFPlone.interfaces.IBundleRegistry' prefix="plone.bundles/tweeter">
+        <value key="resources">
+            <element>tweeter</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="jscompilation">++resource++my.addon/tweeter.js</value>
+        <value key="csscompilation">++resource++my.addon/tweeter.css</value>
+        <value key="last_compilation">2015-06-10 08:58:00</value>
+        <value key="depends">plone</value>
+    </records>
+
+</registry>
