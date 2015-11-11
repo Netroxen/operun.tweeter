@@ -59,7 +59,7 @@ class TweeterView(BrowserView):
                 user_location = ''
 
             profile_bigger = user['profile_image_url'].replace('_normal', '')
-            twitter_icon = 'https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg'
+            profile_color = 'background-color:' + ' #' + user['profile_link_color'] + ';'
 
             tweet_dict = {
             #User tweet variables.
@@ -76,7 +76,7 @@ class TweeterView(BrowserView):
             #User image link variables.
             'profile_image': profile_bigger,
             'profile_banner': profile_banner_url,
-            'twitter_icon': twitter_icon,
+            'profile_color': profile_color,
             }
             data_list.append(tweet_dict)
 
