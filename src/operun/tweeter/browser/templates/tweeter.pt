@@ -10,7 +10,9 @@
   <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-      <h1 class="documentFirstHeading">Twitter Tweeter</h1>
+      <h1 class="documentFirstHeading">Twitter
+        <span class="SecondHeading">Tweeter</span>
+      </h1>
       <div id="form_input">
         <form action="">
           <input type="text" name="form_name">
@@ -33,10 +35,15 @@
               <a href="" class="user_profile_link" tal:attributes="href usr_tweet/profile_link">User Profile</a>
             </div>
             <div class="image_cont">
-              <img src="" tal:attributes="src usr_tweet/profile_banner" alt="NoImage">
-              <div class="usr_img">
-                <img src="" tal:attributes="src usr_tweet/profile_image" alt="NoImage">
+              <div class="usr_banner">
+                <img src="" tal:attributes="src usr_tweet/profile_banner" alt="">
               </div>
+              <div class="usr_img">
+                <img src="" tal:attributes="src usr_tweet/profile_image" alt="">
+              </div>
+            </div>
+            <div class="twitter_icon">
+                <img src="" tal:attributes="src usr_tweet/twitter_icon" alt="">
             </div>
             <div class="text_cont">
               <h1 tal:content="usr_tweet/user_nick">##NickName##</h1>
