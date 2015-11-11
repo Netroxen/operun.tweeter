@@ -1,5 +1,10 @@
-<html xmlns:metal="http://xml.zope.org/namespaces/metal" metal:use-macro="here/main_template/macros/master" xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns="http://www.w3.org/1999/xhtml" i18n:domain="my.addon"
-lang="en">
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="here/main_template/macros/master"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns="http://www.w3.org/1999/xhtml"
+      i18n:domain="my.addon"
+      lang="en">
 
 <body>
   <metal:main fill-slot="main">
@@ -19,15 +24,28 @@ lang="en">
         </form>
       </div>
 
-      <fieldset>
-        <legend></legend>
-        <div tal:define="tweets view/twitter_tweets" tal:condition="tweets">
-          <h2>Success!</h2>
-          <p tal:repeat="tweet tweets">
-            <span tal:replace="tweet/text" />
-          </p>
+      <div tal:define="tweet view/tweet_data" tal:condition="tweet">
+        <div tal:repeat="usr_tweet tweet">
+          <div class="tweet_cont">
+            <div class="link_title_top">
+              <a href="" class="followers_link">
+                <span tal:replace="usr_tweet/follow_count">##Followers Number Value##</span> Followers</a>
+              <a href="" class="user_profile_link" tal:attributes="href usr_tweet/profile_link">User Profile</a>
+            </div>
+            <div class="image_cont">
+              <img src="" tal:attributes="src usr_tweet/profile_banner" alt="NoImage">
+              <div class="usr_img">
+                <img src="" tal:attributes="src usr_tweet/profile_image" alt="NoImage">
+              </div>
+            </div>
+            <div class="text_cont">
+              <h1 tal:content="usr_tweet/user_nick">##NickName##</h1>
+              <h2 tal:content="usr_tweet/user_acc_name">##@UserName##</h2>
+              <p tal:content="usr_tweet/tweet_text">##Tweeted Text##</p>
+            </div>
+          </div>
         </div>
-      </fieldset>
+      </div>
 
     </tal:main-macro>
   </metal:main>

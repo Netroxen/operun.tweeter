@@ -1,0 +1,80 @@
+/* Custom CSS */
+
+.tweet_cont {
+    margin: 20px;
+    float: left;
+    overflow: hidden;
+    width: 320px;
+    height: 400px;
+    border: 3px solid #e1e8ed;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/*Banner image container*/
+
+.image_cont {
+    width: 320px;
+    height: 120px;
+    padding-top: 25PX;
+}
+
+.image_cont > img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/*Profile image container*/
+
+.image_cont > div.usr_img {
+    position: relative;
+    z-index: 100;
+    top: -30px;
+    left: 20px;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    border: 3px solid #f9f9f9;
+    border-radius: 5px;
+}
+
+.image_cont > div.usr_img > img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/*Text container for tweets*/
+
+.text_cont {
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 20px;
+    color: #303030;
+}
+
+.text_cont > h2 {
+    font-size: 18px;
+    margin-top: -20px;
+    color: #808080;
+}
+
+.text_cont > p {
+    max-width: 280px;
+    text-overflow: ellipsis;
+}
+
+/*Top link bar*/
+
+.link_title_top {
+    float: right;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.link_title_top a {
+    margin-left: 5px;
+    text-decoration: none;
+}

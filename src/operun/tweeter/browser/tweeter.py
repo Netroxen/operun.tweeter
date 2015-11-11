@@ -15,7 +15,7 @@ class TweeterView(BrowserView):
 
     def __call__(self):
         return self.template()
-
+        
     def twitter_user(self):
         form = self.request.form
         this_result = form.get('form_name', None)
@@ -23,39 +23,11 @@ class TweeterView(BrowserView):
         return this_result
 
     def tweet_count(self):
-        """
-        Get number of tweets from formula and return as integer.
-        """
+        #Get number of tweets from formula and return as integer.
         form = self.request.form
         this_result = int(form.get('tweet_count', '5'))
 
         return this_result
-
-    """
-    # Recompile string with link tags.
-
-    def tweet_link_recompile(self):
-        tweet_text = self.twitter_tweets()
-        recompile = re.compile(r"(http://[^ ]+)")
-
-        if recompile.endswith('.png', '.jpg'):
-            return recompile.sub(r'<img src="\1">', tweet_text)
-        elif:
-            return recompile.sub(r'<a href="\1">\1</a>', tweet_text)
-    """
-
-    def tweet_dict(self):
-        """
-        Take tweets and append to dictionary,
-        also increase value by '1' if already present.
-        """
-        tweet_d = {}
-
-        for tweet in self.twitter_tweets():
-            if not tweet in tweet_d:
-                tweet_d[tweet] = 1
-            else:
-                tweet_d[tweet] += 1
 
     def twitter_tweets(self):
         t = Twitter(auth=OAuth(TOKEN_KEY, TOKEN_KEY_SECRET, CONSUMER_KEY, CONSUMER_KEY_SECRET))
@@ -67,7 +39,43 @@ class TweeterView(BrowserView):
 
             return all_tweets[:self.tweet_count()]
         else:
-            """
-            If no name available, pass variable and wait for call.
-            """
-            pass
+            return []
+
+    def tweet_data(self):
+        #Useable info from tweet data.
+        data_list = []
+
+        for tweet in self.twitter_tweets():
+            user = tweet['user']
+
+            if 'profile_banner_url' in user:
+                profile_banner_url = user['profile_banner_url']
+            else:
+                profile_banner_url = ''
+
+            if 'location' in user:
+                user_location = user['location']
+            else:
+                user_location = ''
+
+            profile_bigger = user['profile_image_url'].replace('_normal', '')
+
+            tweet_dict = {
+            #User tweet variables.
+            'tweet_text': tweet['text'],
+            'user_nick': user['name'],
+            'user_location': user_location,
+            'user_acc_name': '@' + user['screen_name'],
+            'follow_count': user['followers_count'],
+            'profile_link': 'https://twitter.com/' + user['screen_name'],
+            #'profile_follow_link': 'https://twitter.com/' + user['screen_name'] + '/following',
+            #User image variables.
+            'background_color': user['profile_background_color'],
+            'link_color': user['profile_link_color'],
+            #User image link variables.
+            'profile_image': profile_bigger,
+            'profile_banner': profile_banner_url,
+            }
+            data_list.append(tweet_dict)
+
+        return data_list
