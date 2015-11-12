@@ -54,13 +54,18 @@ class TweeterView(BrowserView):
             return []
 
     def replace_url_to_link(self, value):
-        #Replace url to link.
+        #URL method.
         urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE|re.UNICODE)
         value = urls.sub(r'<a href="\1">\1</a>', value)
 
-        #Replace email to mailto.
+        #E-Mail method.
         urls = re.compile(r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE|re.UNICODE)
         value = urls.sub(r'<a href="mailto:\1">\1</a>', value)
+
+        return value
+
+    def replace_hash_word_col(self, value):
+        value = re.findall(r'#\w*', value)
 
         return value
 
