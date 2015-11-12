@@ -95,7 +95,7 @@ class TweeterView(BrowserView):
 
             tweet_dict = {
             #User tweet variables.
-            'tweet_text': self.replace_url_to_link(tweet['text']),
+            'tweet_text': tweet['text'], #self.replace_url_to_link(tweet['text'])
             'user_nick': user['name'],
             'user_location': user_location,
             'user_acc_name': '@' + user['screen_name'],
