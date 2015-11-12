@@ -9,30 +9,32 @@
 <body>
   <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
-
-      <h1 class="documentFirstHeading">Twitter
-        <span class="SecondHeading">Tweeter</span>
-      </h1>
+      <div class="TitleTwitter">
+        <h1 class="documentFirstHeading">Twitter
+          <span class="TitleTweeter">Tweeter</span>
+        </h1>
+      </div>
       <div id="form_input">
         <form action="">
-          <input type="text" name="form_name">
-          <br>
-          <input type="radio" name="tweet_count" value="5">5
-          <input type="radio" name="tweet_count" value="10">10
-          <input type="radio" name="tweet_count" value="15">15
-          <input type="radio" name="tweet_count" value="20">20
-          <br>
-          <input type="submit" class="context" name="import_name" value="Import">
+          <input class="tweet_text_input" style="width: 960px;" type="text" name="form_name" placeholder="Enter Twitter user or hashtag search query...">
+          <select class="tweet_count_selector" style="width: 60px;" name="tweet_count">
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="18">18</option>
+          </select>
+          <div tal:replace="nothing">
+            <input type="submit" class="context" name="import_name" value="Import">
+          </div>
         </form>
       </div>
 
       <div tal:define="tweet view/tweet_data" tal:condition="tweet">
         <div tal:repeat="usr_tweet tweet">
-          <div class="tweet_cont">
+          <div class="tweet_cont" style="" tal:attributes="style usr_tweet/profile_border_color">
             <div class="link_title_top">
-              <a href="" class="followers_link">
+              <a href="" style="" class="followers_link" tal:attributes="href usr_tweet/profile_follow_link; style usr_tweet/profile_link_color">
                 <span tal:replace="usr_tweet/follow_count">##Followers Number Value##</span> Followers</a>
-              <a href="" class="user_profile_link" tal:attributes="href usr_tweet/profile_link">User Profile</a>
+              <a href="" style="" class="user_profile_link" tal:attributes="href usr_tweet/profile_link; style usr_tweet/profile_link_color">User Profile</a>
             </div>
             <div class="image_cont">
               <div class="usr_banner" style="" tal:attributes="style usr_tweet/profile_color">

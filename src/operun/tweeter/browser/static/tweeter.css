@@ -5,14 +5,19 @@
     overflow: hidden;
     width: 320px;
     height: 360px;
-    margin: 0 15px 15px 0;
-    border: 3px solid #e1e8ed;
-    border-radius: 15px 0 15px 0;
+    margin: 15px 30px 15px 0;
+    border-radius: 30px 0 30px 0;
     background-color: #f9f9f9;
-    background-image: url(https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg);
-    background-repeat: no-repeat;
-    background-position: 8px 5px;
-    background-size: 15px 15px;
+    box-shadow: 3px 3px 3px #bdbdbd;
+}
+
+.tweet_text_input {
+    float: left;
+}
+
+.tweet_count_selector {
+    float: right;
+    margin: 0 118px 0 0;
 }
 
 /*Banner image container*/
@@ -96,23 +101,18 @@
     text-decoration: none;
 }
 
-.link_title_top a:hover {
-    text-decoration: none;
-    color: #2196f3;
-}
-
 /*Plone content*/
 
-.documentFirstHeading {
+.TitleTwitter {
     font-weight: 400;
     color: #2196f3;
     background-image: url(https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg);
     background-repeat: no-repeat;
     background-position: 250px 0;
-    background-size: 30px 30px;
+    background-size: 30px 25px;
 }
 
-.documentFirstHeading .SecondHeading {
+.TitleTweeter {
     font-weight: 200;
     color: #303030;
 }
