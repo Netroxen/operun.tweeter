@@ -1,42 +1,43 @@
-/* Custom CSS */
+/*Custom CSS*/
 
 .tweet_cont {
     float: left;
     overflow: hidden;
     width: 320px;
-    height: 360px;
+    /*height: 360px;*/
     margin: 15px 30px 15px 0;
-    -webkit-animation: expand 3s;
-       -moz-animation: expand 3s;
-    border-radius: 30px 0 30px 0;
+    animation-name: expand, corner;
+    animation-duration: 1s, 1s;
+    animation-delay: 0s, 1s;
+    /*border-radius: 30px 0 30px 0;*/
     background-color: #f9f9f9;
-    box-shadow: 3px 3px 3px #bdbdbd;
+    /*box-shadow: 3px 3px 3px #bdbdbd;*/
     animation-fill-mode: forwards;
 }
 
-@-webkit-keyframes expand {
-    from {
-        height: 240px;
-        border-radius: 0 0 0 0;
-    }
-
-    to {
-        height: 360px;
-        border-radius: 30px 0 30px 0;
-    }
-}
-
 @-moz-keyframes expand {
-    from {
+    0% {
         height: 240px;
-        border-radius: 0 0 0 0;
     }
 
-    to {
+    100% {
         height: 360px;
-        border-radius: 30px 0 30px 0;
     }
 }
+
+@-moz-keyframes corner {
+    0% {
+        border-radius: 0 0 0 0;
+        box-shadow: 0 0 0 #fff;
+    }
+
+    100% {
+        border-radius: 30px 0 30px 0;
+        box-shadow: 3px 3px 3px #bdbdbd;
+    }
+}
+
+/*End of main container*/
 
 .tweet_text_input {
     float: left;
@@ -95,8 +96,21 @@
     margin: auto;
     margin-top: 25px;
     padding: 20px;
+    animation: fadein 2s;
     color: #303030;
 }
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/*End of text container*/
 
 .text_cont > h1 {
     font-size: 20px;
