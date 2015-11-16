@@ -59,6 +59,7 @@
 .image_cont > div.usr_banner {
     position: relative;
     z-index: 50;
+    overflow: hidden;
     width: 320px;
     height: 100px;
 }
