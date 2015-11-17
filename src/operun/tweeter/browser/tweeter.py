@@ -1,8 +1,9 @@
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage #Error messages.
 
-from twitter import *
-import re
+from twitter import * #Twitter API module.
+import re #File string handling.
 
 TOKEN_KEY = '3946834222-BbW0VMZ0T4RzTxkIIzcjigt5PnefIq8bRBu5IcE'
 TOKEN_KEY_SECRET = 'nPfoG90sn7lAfjdCIX5GKvy1jgt53EtlpCbDL6lD1BUgG'
@@ -29,6 +30,10 @@ class TweeterView(BrowserView):
 
         return this_result
 
+    def plone_message(self, msg, kind):
+        message = IStatusMessage(self.request)
+        message.add(msg, type=kind)
+
     def twitter_tweets(self):
         t = Twitter(auth=OAuth(TOKEN_KEY, TOKEN_KEY_SECRET, CONSUMER_KEY, CONSUMER_KEY_SECRET))
         name = self.twitter_user()
@@ -52,6 +57,23 @@ class TweeterView(BrowserView):
                 return tweet_list
         else:
             return []
+
+    def tweet_info_message(self):
+        if self.tweet_count() == 6:
+            try:
+                all_tweets[6]
+            except IndexError:
+                self.plone_message('This user has less than 6 tweets.', 'info')
+        if self.tweet_count() == 12:
+            try:
+                all_tweets[12
+            except IndexError:
+                self.plone_message('This user has less than 12 tweets.', 'info')
+        if self.tweet_count() == 18:
+            try:
+                all_tweets[18]
+            except IndexError:
+                self.plone_message('This user has less than 18 tweets.', 'info')
 
     def replace_url_to_link(self, value):
         #URL method.
