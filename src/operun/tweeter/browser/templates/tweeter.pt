@@ -28,7 +28,7 @@
         </form>
       </div>
 
-      <div tal:define="tweet view/tweet_data" tal:condition="tweet">
+      <div tal:define="tweet view/tweet_loader" tal:condition="tweet">
         <div tal:repeat="usr_tweet tweet">
           <div class="tweet_cont" style="" tal:attributes="style usr_tweet/profile_border_color">
             <div class="link_title_top">
@@ -48,7 +48,7 @@
             <div class="text_cont">
               <h1 tal:content="usr_tweet/user_nick">##NickName##</h1>
               <h2 tal:content="usr_tweet/user_acc_name">##@UserName##</h2>
-              <p tal:content="usr_tweet/tweet_text">##Tweeted Text##</p>
+              <p tal:content="structure usr_tweet/tweet_text">##Tweeted Text##</p>
             </div>
           </div>
         </div>
