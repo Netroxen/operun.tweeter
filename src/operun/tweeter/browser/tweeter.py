@@ -59,8 +59,7 @@ class TweeterView(BrowserView):
 
                 return tweet_list
             if '@' in name:
-                all_tweets = t.statuses.user_timeline(
-                    screen_name='%s' % (name))
+                all_tweets = t.statuses.user_timeline(screen_name='%s' % (name))  # noqa
                 tweet_list = all_tweets[:self.tweet_count()]
 
                 if len(all_tweets) < self.tweet_count():
@@ -69,8 +68,7 @@ class TweeterView(BrowserView):
 
                 return tweet_list
             else:
-                all_tweets = t.statuses.user_timeline(
-                    screen_name='%s' % (name))
+                all_tweets = t.statuses.user_timeline(screen_name='%s' % (name))  # noqa
                 tweet_list = all_tweets[:self.tweet_count()]
 
                 if len(all_tweets) < self.tweet_count():
@@ -105,6 +103,7 @@ class TweeterView(BrowserView):
 
         for tweet in self.twitter_tweets():
             user = tweet['user']
+            text = tweet['text']
 
             # Error handling.
             if 'profile_banner_url' in user:
@@ -123,7 +122,6 @@ class TweeterView(BrowserView):
             profile_color = 'background-color:' + ' #' + hashat_color + ';'
             profile_link_color = 'color:' + ' #' + hashat_color + ';'
             profile_border_color = 'border: 1px solid #' + hashat_color + ';'
-            text = tweet['text']
 
             text = self.replace_url_to_link(text)
             text = self.replace_hashat_word_color(text, hashat_color)
@@ -135,6 +133,7 @@ class TweeterView(BrowserView):
                 'user_location': user_location,
                 'user_acc_name': '@' + user['screen_name'],
                 'follow_count': user['followers_count'],
+                'tweets_count': user['statuses_count'],
                 'profile_link': 'https://twitter.com/' + user['screen_name'],
                 'profile_follow_link': 'https://twitter.com/' + user['screen_name'] + '/following',
                 # User image variables.

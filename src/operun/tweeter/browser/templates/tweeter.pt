@@ -44,7 +44,18 @@
                 <img src="" tal:attributes="src usr_tweet/profile_image" alt="">
               </div>
             </div>
-            <div class="twitter_icon"></div>
+            <div class="info_bar_cont">
+              <table>
+                <tr>
+                  <th rowspan="2">TWEETS
+                    <span class="tweet_counter" style="" tal:attributes="style usr_tweet/profile_link_color" tal:content="usr_tweet/tweets_count">##User Tweets##</span>
+                  </th>
+                  <th rowspan="2">FOLLOWERS
+                    <span class="follow_counter" style="" tal:attributes="style usr_tweet/profile_link_color" tal:content="usr_tweet/follow_count">##User Followers##</span>
+                  </th>
+                </tr>
+              </table>
+            </div>
             <div class="text_cont">
               <h1 tal:content="usr_tweet/user_nick">##NickName##</h1>
               <h2 tal:content="usr_tweet/user_acc_name">##@UserName##</h2>
