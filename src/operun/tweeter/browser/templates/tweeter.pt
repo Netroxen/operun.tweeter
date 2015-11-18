@@ -50,8 +50,8 @@
                   <th rowspan="2">TWEETS
                     <span class="tweet_counter" style="" tal:attributes="style usr_tweet/profile_link_color" tal:content="usr_tweet/tweets_count">##User Tweets##</span>
                   </th>
-                  <th rowspan="2">FOLLOWERS
-                    <span class="follow_counter" style="" tal:attributes="style usr_tweet/profile_link_color" tal:content="usr_tweet/follow_count">##User Followers##</span>
+                  <th rowspan="2">FOLLOWING
+                    <span class="follow_counter" style="" tal:attributes="style usr_tweet/profile_link_color" tal:content="usr_tweet/following_count">##Following##</span>
                   </th>
                 </tr>
               </table>

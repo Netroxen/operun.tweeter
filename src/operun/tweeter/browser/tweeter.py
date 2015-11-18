@@ -4,6 +4,7 @@ from Products.statusmessages.interfaces import IStatusMessage  # Error messages.
 
 from twitter import *  # Twitter API module.
 import re  # File string handling.
+import ipdb  # Debugging.
 
 TOKEN_KEY = '3946834222-BbW0VMZ0T4RzTxkIIzcjigt5PnefIq8bRBu5IcE'
 TOKEN_KEY_SECRET = 'nPfoG90sn7lAfjdCIX5GKvy1jgt53EtlpCbDL6lD1BUgG'
@@ -39,6 +40,24 @@ class TweeterView(BrowserView):
         message = IStatusMessage(self.request)
         message.add(msg, type=kind)
 
+    def twitter_tweet_errors(self, value):
+        # For hash search.
+        if len(value) and len(value) < self.tweet_count():
+            self.spawn_message(
+                'Search returned less than ' + str(self.tweet_count()) + ' tweets.', 'info')
+
+        # For user search.
+        if len(value) and len(value) < self.tweet_count():
+            self.spawn_message(
+                'User has less than ' + str(self.tweet_count()) + ' tweets or doesn\'t exist.', 'info')
+
+        # No result error.
+        if len(value) == 0:
+            self.spawn_message(
+                'Search returned no results.', 'warning')
+
+    ipdb.set_trace()
+
     def twitter_tweets(self):
         t = Twitter(auth=OAuth(TOKEN_KEY, TOKEN_KEY_SECRET, CONSUMER_KEY, CONSUMER_KEY_SECRET))  # noqa
         name = self.twitter_user()
@@ -48,32 +67,19 @@ class TweeterView(BrowserView):
                 all_tweets = t.search.tweets(q="%s" % (name))
                 status_tweets = all_tweets['statuses']
                 tweet_list = status_tweets[:self.tweet_count()]
-
-                if len(status_tweets) and len(status_tweets) < self.tweet_count():
-                    self.spawn_message(
-                        'Search returned less than ' + str(self.tweet_count()) + ' tweets.', 'info')
-
-                if len(status_tweets) == 0:
-                    self.spawn_message(
-                        'Search returned no results.', 'warning')
+                self.twitter_tweet_errors(status_tweets)
 
                 return tweet_list
             if '@' in name:
                 all_tweets = t.statuses.user_timeline(screen_name='%s' % (name))  # noqa
                 tweet_list = all_tweets[:self.tweet_count()]
-
-                if len(all_tweets) < self.tweet_count():
-                    self.spawn_message(
-                        'User has less than ' + str(self.tweet_count()) + ' tweets or doesn\'t exist.', 'info')
+                self.twitter_tweet_errors(all_tweets)
 
                 return tweet_list
             else:
                 all_tweets = t.statuses.user_timeline(screen_name='%s' % (name))  # noqa
                 tweet_list = all_tweets[:self.tweet_count()]
-
-                if len(all_tweets) < self.tweet_count():
-                    self.spawn_message(
-                        'User has less than ' + str(self.tweet_count()) + ' tweets or doesn\'t exist.', 'info')
+                self.twitter_tweet_errors(all_tweets)
 
                 return tweet_list
         else:
@@ -82,7 +88,7 @@ class TweeterView(BrowserView):
     def replace_url_to_link(self, value):
         # URL method.
         urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE | re.UNICODE)  # noqa
-        value = urls.sub(r'<a href="\1">\1</a>', value)
+        value = urls.sub(r'<a href="\1" style="color: #606060;">\1</a>', value)
 
         # E-Mail method.
         urls = re.compile(r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE | re.UNICODE)  # noqa
@@ -117,14 +123,14 @@ class TweeterView(BrowserView):
                 user_location = ''
 
             # Variables to pass through page template.
-            profile_bigger = user['profile_image_url'].replace('_normal', '')
             hashat_color = user['profile_link_color']
+            profile_bigger = user['profile_image_url'].replace('_normal', '')
             profile_color = 'background-color:' + ' #' + hashat_color + ';'
             profile_link_color = 'color:' + ' #' + hashat_color + ';'
             profile_border_color = 'border: 1px solid #' + hashat_color + ';'
 
-            text = self.replace_url_to_link(text)
             text = self.replace_hashat_word_color(text, hashat_color)
+            text = self.replace_url_to_link(text)
 
             tweet_dict = {
                 # User tweet variables.
@@ -134,8 +140,9 @@ class TweeterView(BrowserView):
                 'user_acc_name': '@' + user['screen_name'],
                 'follow_count': user['followers_count'],
                 'tweets_count': user['statuses_count'],
+                'following_count': user['friends_count'],
                 'profile_link': 'https://twitter.com/' + user['screen_name'],
-                'profile_follow_link': 'https://twitter.com/' + user['screen_name'] + '/following',
+                'profile_follow_link': 'https://twitter.com/' + user['screen_name'] + '/followers',
                 # User image variables.
                 'background_color': user['profile_background_color'],
                 'link_color': hashat_color,

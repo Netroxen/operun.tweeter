@@ -1,14 +1,14 @@
 if (window.jQuery) {
-    define('jquery', [], function() {
-        return window.jQuery;
-    });
+  define('jquery', [], function() {
+    return window.jQuery;
+  });
 }
 
 require([
-    'jquery'
+  'jquery'
 ], function($) {
-    'use strict';
+  'use strict';
 
-    // Enter Content Here
+  // Enter Content Here
 
 });
