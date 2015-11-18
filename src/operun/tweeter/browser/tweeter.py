@@ -1,7 +1,6 @@
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-# Error messages.
-from Products.statusmessages.interfaces import IStatusMessage
+from Products.statusmessages.interfaces import IStatusMessage  # Error messages.  # noqa
 
 from twitter import *  # Twitter API module.
 import re  # File string handling.
@@ -22,6 +21,7 @@ class TweeterView(BrowserView):
         return self.template()
 
     def twitter_user(self):
+        # Grabs the text input from page-template.
         form = self.request.form
         this_result = form.get('form_name', None)
 
@@ -35,12 +35,12 @@ class TweeterView(BrowserView):
         return this_result
 
     def spawn_message(self, msg, kind):
+        # Creates an error message within Plone environment.
         message = IStatusMessage(self.request)
         message.add(msg, type=kind)
 
     def twitter_tweets(self):
-        t = Twitter(auth=OAuth(TOKEN_KEY, TOKEN_KEY_SECRET,
-                               CONSUMER_KEY, CONSUMER_KEY_SECRET))
+        t = Twitter(auth=OAuth(TOKEN_KEY, TOKEN_KEY_SECRET, CONSUMER_KEY, CONSUMER_KEY_SECRET))  # noqa
         name = self.twitter_user()
 
         if name:
@@ -49,7 +49,7 @@ class TweeterView(BrowserView):
                 status_tweets = all_tweets['statuses']
                 tweet_list = status_tweets[:self.tweet_count()]
 
-                if len(status_tweets) < self.tweet_count():
+                if len(status_tweets) and len(status_tweets) < self.tweet_count():
                     self.spawn_message(
                         'Search returned less than ' + str(self.tweet_count()) + ' tweets.', 'info')
 
@@ -83,22 +83,21 @@ class TweeterView(BrowserView):
 
     def replace_url_to_link(self, value):
         # URL method.
-        urls = re.compile(
-            r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE | re.UNICODE)
+        urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE | re.UNICODE)  # noqa
         value = urls.sub(r'<a href="\1">\1</a>', value)
 
         # E-Mail method.
-        urls = re.compile(
-            r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE | re.UNICODE)
+        urls = re.compile(r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE | re.UNICODE)  # noqa
         value = urls.sub(r'<a href="mailto:\1">\1</a>', value)
 
         return value
 
-    def replace_hash_word_col(self, value):
-        hash_word = re.compile(r"([#@]\w+)", re.MULTILINE | re.UNICODE)
-        value = hash_word.sub(r'<span style="color: #2196f3">\1</span>', value)
+    def replace_hashat_word_color(self, value, color):
+        # Replaces words from tweeted text with user specific color styling.
+        word_color = re.compile(r"([#@]\w+)", re.MULTILINE | re.UNICODE).sub(r'<span style="color: #replace_hashat_word_color">\1</span>', value)  # noqa
+        word_color = word_color.replace('replace_hashat_word_color', color)
 
-        return value
+        return word_color
 
     def tweet_data(self):
         # Useable info from tweet data.
@@ -120,16 +119,18 @@ class TweeterView(BrowserView):
 
             # Variables to pass through page template.
             profile_bigger = user['profile_image_url'].replace('_normal', '')
-            profile_color = 'background-color:' + \
-                ' #' + user['profile_link_color'] + ';'
-            profile_border_color = 'border: 1px solid #' + \
-                user['profile_link_color'] + ';'
-            profile_link_color = 'color:' + ' #' + \
-                user['profile_link_color'] + ';'
+            hashat_color = user['profile_link_color']
+            profile_color = 'background-color:' + ' #' + hashat_color + ';'
+            profile_link_color = 'color:' + ' #' + hashat_color + ';'
+            profile_border_color = 'border: 1px solid #' + hashat_color + ';'
+            text = tweet['text']
+
+            text = self.replace_url_to_link(text)
+            text = self.replace_hashat_word_color(text, hashat_color)
 
             tweet_dict = {
                 # User tweet variables.
-                'tweet_text': self.replace_hash_word_col(self.replace_url_to_link(tweet['text'])).replace('RT', ""),
+                'tweet_text': text,
                 'user_nick': user['name'],
                 'user_location': user_location,
                 'user_acc_name': '@' + user['screen_name'],
@@ -138,7 +139,7 @@ class TweeterView(BrowserView):
                 'profile_follow_link': 'https://twitter.com/' + user['screen_name'] + '/following',
                 # User image variables.
                 'background_color': user['profile_background_color'],
-                'link_color': user['profile_link_color'],
+                'link_color': hashat_color,
                 # User image link variables.
                 'profile_image': profile_bigger,
                 'profile_banner': profile_banner_url,
