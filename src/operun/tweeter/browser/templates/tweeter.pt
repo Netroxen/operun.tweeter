@@ -28,6 +28,8 @@
         </form>
       </div>
 
+      <div class="counter">1,356</div>
+
       <div tal:define="tweet view/tweet_loader" tal:condition="tweet">
         <div tal:repeat="usr_tweet tweet">
           <div class="tweet_cont" style="" tal:attributes="style usr_tweet/profile_border_color">

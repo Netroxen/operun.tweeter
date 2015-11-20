@@ -5,10 +5,19 @@ if (window.jQuery) {
 }
 
 require([
-  'jquery'
+  'jquery',
+  'counterup',
+  'waypoints'
 ], function($) {
   'use strict';
 
-  // Enter Content Here
+  $('.counter').click(function() {
+    alert( "Handler for .click() called." );
+  });
+
+  $('.counter').counterUp({
+    delay: 10,
+    time: 1000
+  });
 
 });
