@@ -41,20 +41,10 @@ class TweeterView(BrowserView):
         message.add(msg, type=kind)
 
     def twitter_tweet_errors(self, value):
-        # For hash search.
         if len(value) and len(value) < self.tweet_count():
-            self.spawn_message(
-                'Search returned less than ' + str(self.tweet_count()) + ' tweets.', 'info')
-
-        # For user search.
-        if len(value) and len(value) < self.tweet_count():
-            self.spawn_message(
-                'User has less than ' + str(self.tweet_count()) + ' tweets or doesn\'t exist.', 'info')
-
-        # No result error.
-        if len(value) == 0:
-            self.spawn_message(
-                'Search returned no results.', 'warning')
+            self.spawn_message('Search returned less than ' + str(self.tweet_count()) + ' tweets.', 'info')  # noqa
+        elif len(value) == 0:
+            self.spawn_message('Search returned no results.', 'warning')
 
     # ipdb.set_trace()
 
@@ -67,18 +57,21 @@ class TweeterView(BrowserView):
                 all_tweets = t.search.tweets(q="%s" % (name))
                 status_tweets = all_tweets['statuses']
                 tweet_list = status_tweets[:self.tweet_count()]
+
                 self.twitter_tweet_errors(status_tweets)
 
                 return tweet_list
             if '@' in name:
                 all_tweets = t.statuses.user_timeline(screen_name='%s' % (name))  # noqa
                 tweet_list = all_tweets[:self.tweet_count()]
+
                 self.twitter_tweet_errors(all_tweets)
 
                 return tweet_list
             else:
                 all_tweets = t.statuses.user_timeline(screen_name='%s' % (name))  # noqa
                 tweet_list = all_tweets[:self.tweet_count()]
+
                 self.twitter_tweet_errors(all_tweets)
 
                 return tweet_list
