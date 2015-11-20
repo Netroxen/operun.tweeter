@@ -1,12 +1,34 @@
 <registry>
-    <records interface='Products.CMFPlone.interfaces.IBundleRegistry' prefix="plone.bundles/tweeter">
-        <value key="resources">
-            <element>tweeter</element>
-        </value>
-        <value key="enabled">True</value>
-        <value key="jscompilation">++resource++operun.tweeter/tweeter.js</value>
-        <value key="csscompilation">++resource++operun.tweeter/tweeter.css</value>
-        <value key="last_compilation">2015-06-10 08:58:00</value>
-        <value key="depends">plone</value>
-    </records>
+
+  <records interface='Products.CMFPlone.interfaces.IResourceRegistry' prefix="plone.resources/counterup">
+    <value key="js">++resource++operun.tweeter/counterup.min.js</value>
+    <value key="deps">jquery</value>
+  </records>
+
+  <records interface='Products.CMFPlone.interfaces.IResourceRegistry' prefix="plone.resources/waypoints">
+    <value key="js">++resource++operun.tweeter/waypoints.min.js</value>
+    <value key="deps">jquery</value>
+  </records>
+
+  <records interface='Products.CMFPlone.interfaces.IResourceRegistry' prefix="plone.resources/tweeter">
+    <value key="js">++resource++operun.tweeter/tweeter.js</value>
+    <value key="deps">jquery</value>
+    <value key="css">
+      <element>++resource++operun.tweeter/tweeter.css</element>
+    </value>
+  </records>
+
+  <records interface='Products.CMFPlone.interfaces.IBundleRegistry' prefix="plone.bundles/tweeter">
+    <value key="resources">
+      <element>counterup</element>
+      <element>waypoints</element>
+      <element>tweeter</element>
+    </value>
+    <value key="enabled">True</value>
+    <value key="jscompilation">++resource++operun.tweeter/tweeter.js</value>
+    <value key="csscompilation">++resource++operun.tweeter/tweeter.css</value>
+    <value key="last_compilation">2015-06-10 08:58:00</value>
+    <value key="depends">plone</value>
+  </records>
+
 </registry>

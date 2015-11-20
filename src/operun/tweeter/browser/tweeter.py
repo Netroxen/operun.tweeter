@@ -4,7 +4,7 @@ from Products.statusmessages.interfaces import IStatusMessage  # Error messages.
 
 from twitter import *  # Twitter API module.
 import re  # File string handling.
-import ipdb  # Debugging.
+# import ipdb  # Debugging - Heavy module, disable if not in use.
 
 TOKEN_KEY = '3946834222-BbW0VMZ0T4RzTxkIIzcjigt5PnefIq8bRBu5IcE'
 TOKEN_KEY_SECRET = 'nPfoG90sn7lAfjdCIX5GKvy1jgt53EtlpCbDL6lD1BUgG'
@@ -56,7 +56,7 @@ class TweeterView(BrowserView):
             self.spawn_message(
                 'Search returned no results.', 'warning')
 
-    ipdb.set_trace()
+    # ipdb.set_trace()
 
     def twitter_tweets(self):
         t = Twitter(auth=OAuth(TOKEN_KEY, TOKEN_KEY_SECRET, CONSUMER_KEY, CONSUMER_KEY_SECRET))  # noqa
