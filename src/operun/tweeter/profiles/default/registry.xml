@@ -20,14 +20,13 @@
 
     <records interface='Products.CMFPlone.interfaces.IBundleRegistry' prefix="plone.bundles/tweeter">
         <value key="resources">
-            <element>counterup</element>
-            <element>waypoints</element>
             <element>tweeter</element>
         </value>
-        <value key="enabled">True</value>
-        <value key="jscompilation">++resource++operun.tweeter/tweeter.js</value>
-        <value key="csscompilation">++resource++operun.tweeter/tweeter.css</value>
+        <value key="jscompilation">++resource++operun.tweeter/tweeter-compiled.js</value>
+        <value key="csscompilation">++resource++operun.tweeter/tweeter-compiled.css</value>
         <value key="last_compilation">2015-06-10 08:58:00</value>
+        <value key="enabled">True</value>
+        <value key="compile">True</value>
         <value key="depends">plone</value>
     </records>
 
