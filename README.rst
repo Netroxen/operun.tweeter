@@ -6,34 +6,29 @@
 operun.tweeter
 ==============================================================================
 
-Tell me what your product does
+Plone Twitter module which fetches tweets and displays them as tiles.
 
 Features
 --------
 
-- Can be bullet points
-
-
-Examples
---------
-
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
-
+- Hashtag and multiple search queries possible.
+- Error handling and info tool-tips.
+- User statistics displayed in tiles.
+- Possible to select how many tweets to fetch.
 
 Documentation
 -------------
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+Current implementation for usage works as follows:
 
+1. Start an instance inside the operun.tweeter. [./bin/instance fg]
+2. Open your browser and navigate to localhost:8080/Plone/tweeter.
 
 Translations
 ------------
 
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
-
+No translations available currently.
+German translation possible.
 
 Installation
 ------------
@@ -56,15 +51,6 @@ Contribute
 
 - Issue Tracker: https://github.com/collective/operun.tweeter/issues
 - Source Code: https://github.com/collective/operun.tweeter
-- Documentation: https://docs.plone.org/foo/bar
-
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
-
 
 License
 -------
